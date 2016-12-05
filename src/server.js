@@ -1,5 +1,8 @@
 const Hapi = require('hapi');
 const Inert = require('inert');
+const Request = require('request');
+const Querystring = require('querystring');
+const Env = require('env2')('./config.env');
 
 const server = new Hapi.Server();
 const port = process.env.PORT || 3000;
@@ -10,16 +13,27 @@ server.connection({
 
 server.register(Inert, (err) => {
   if (err) throw err;
-  server.route({
-    method: 'GET',
-    path: '/{file*}',
-    handler: {
-      directory: {
-        path: 'public'        
-      }
-    }
-  })
 })
+
+server.route([{
+  method: 'GET',
+  path: '/{file*}',
+  handler: {
+    directory: {
+      path: 'public'
+    }
+  }
+},{
+  method: 'GET',
+  path: '/login',
+  handler: (req, reply) => {
+    const githubLink = 'https://github.com/login/oauth/authorize';
+    const queryParams = Querystring.stringify({'client_id':process.env.CLIENT_ID, 'redirect_uri':process.env.BASE_URL + '/welcome'});
+    reply.redirect(`${githubLink}?${queryParams}`);
+  }
+}]
+)
+
 
 server.start((err) => {
   if(err) throw err;
