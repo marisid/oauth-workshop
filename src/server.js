@@ -31,9 +31,26 @@ server.route([{
     const queryParams = Querystring.stringify({'client_id':process.env.CLIENT_ID, 'redirect_uri':process.env.BASE_URL + '/welcome'});
     reply.redirect(`${githubLink}?${queryParams}`);
   }
-}]
-)
-
+}, {
+  method: 'GET',
+  path: '/welcome',
+  handler: (req, reply) => {
+    const accessTokenUrl = 'https://github.com/login/oauth/access_token';
+    const code = req.query.code;
+    Request({
+      url: accessTokenUrl,
+      method: 'POST',
+      form: {
+        client_id: process.env.CLIENT_ID,
+        client_secret: process.env.CLIENT_SECRET,
+        code: code
+      }
+    },(err,res,body) => {
+        if (err) throw err;
+        reply(body);
+    })
+  }
+}]);
 
 server.start((err) => {
   if(err) throw err;
