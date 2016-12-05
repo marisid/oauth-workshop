@@ -1,0 +1,24 @@
+{
+  "name": "oauth-workshop",
+  "version": "1.0.0",
+  "description": "Monday morning workshop for FAC9 week 8",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marisid/oauth-workshop.git"
+  },
+  "author": "Marina and Peter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marisid/oauth-workshop/issues"
+  },
+  "homepage": "https://github.com/marisid/oauth-workshop#readme",
+  "dependencies": {
+    "hapi": "^16.0.1",
+    "inert": "^4.0.3"
+  }
+}
