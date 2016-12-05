@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/marisid/oauth-workshop#readme",
   "dependencies": {
+    "env2": "^2.1.1",
     "hapi": "^16.0.1",
-    "inert": "^4.0.3"
+    "inert": "^4.0.3",
+    "request": "^2.79.0"
   }
 }
